@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const User = require('./models/User');
+const ConnectDB = require('./config/db')
 
 dotenv.config();
 const app = express();
@@ -16,9 +16,7 @@ app.get('/', (req, res) => {
 
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+ConnectDB();
 
 // USSD endpoint
 app.post('/ussd', async (req, res) => {
